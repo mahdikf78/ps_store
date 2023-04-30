@@ -87,8 +87,9 @@ def search_pages():
                 show_cart()
             else:
                 page = int(page) + 1
+                url = input('paste url here without last number in url : ')
                 for i in range(1,int(page)):
-                    get_deals('https://store.playstation.com/en-tr/category/d6656b86-19a5-462e-83ba-2508131a4657/'+str(i)+'?FULL_GAME=storeDisplayClassification')
+                    get_deals(url+str(i)+'?FULL_GAME=storeDisplayClassification')
                 break
         except:
             print('\033[31mwrong input\033[0m')
