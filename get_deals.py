@@ -87,7 +87,8 @@ def search_pages():
                 show_cart()
             else:
                 page = int(page) + 1
-                url = input('paste url here without last number in url : ')
+                url = input('paste url here : ')
+                url.replace('/1','')
                 for i in range(1,int(page)):
                     get_deals(url+str(i)+'?FULL_GAME=storeDisplayClassification')
                 break
