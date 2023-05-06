@@ -88,9 +88,9 @@ def search_pages():
             else:
                 page = int(page) + 1
                 url = input('paste url here : ')
-                url.replace('/1','')
+                del_part = url.rfind('1')
                 for i in range(1,int(page)):
-                    get_deals(url+str(i)+'?FULL_GAME=storeDisplayClassification')
+                    get_deals(url[:del_part]+str(i)+'?FULL_GAME=storeDisplayClassification')
                 break
         except:
             print('\033[31mwrong input\033[0m')
