@@ -56,6 +56,9 @@ def search_games():
             games.clear()
             search_pages()
             break
+        elif res == '--c':
+            print('')
+            show_cart()
         res1 = [item for item in games if res in item]
         for i in res1:
             print('\033[32m',res1.index(i),'-',i,'\033[0m')
