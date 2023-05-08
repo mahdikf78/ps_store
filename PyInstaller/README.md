@@ -1,6 +1,6 @@
 <h1>Download RAR File</h1>
 <p>
-download anb extract the rar file. go to <dist> folder and run get_deals app
+download and extract the rar file. now go to <dist> folder and run get_deals app
 </p>
 
 <h1>فایل Rar رو دانلود کنید</h1>
