@@ -1,4 +1,5 @@
 import requests
+import send2trash
 import json
 import os
 #This Library is for Reading HTML
@@ -56,26 +57,24 @@ def show_cart():
     file = open('cart.txt','r')
     text = file.read()
     print(text)
-"""
-def get_date():
-    url = f'https://store.playstation.com/{link[0]}'
-    print(url)
-    soup = BeautifulSoup(requests.get(url).content, 'html.parser')
-
-    for dates in soup.find_all('span', class_='psw-t-overline psw-t-bold psw-l-line-left psw-fill-x'):
-        a = dates.get_text()
-        print('\033[36m'+a[a.find('O'):][:a.rfind('3')]+'\033[0m')
-"""
 def search_games():
     while True:
         res = input('Search Game by Name : ')
-        if res == '.':
+        if res == '--c':
+            try:
+                print('')
+                show_cart()
+                aa = input('Enter to Exit ,, Type 0 to Delete Cart : ')
+                if aa == 'c' :
+                    send2trash.send2trash('cart.txt')
+                    print('Cart Deleted')
+            except:
+                print('cart not found')
+                print('')
+        elif res == '.':
             games.clear()
             search_pages()
             break
-        elif res == '--c':
-            print('')
-            show_cart()
         res1 = [item for item in games if res in item]
         for i in res1:
             print('\033[32m',res1.index(i),'-',i,'\033[0m')
@@ -103,8 +102,16 @@ def search_pages():
         page = input('what page? : ')
         try:
             if page == '--c':
-                print('')
-                show_cart()
+                try:
+                    print('')
+                    show_cart()
+                    aa = input('Enter to Exit ,, Type 0 to Delete Cart : ')
+                    if aa == 'c' :
+                        send2trash.send2trash('cart.txt')
+                        print('Cart Deleted')
+                except:
+                    print('cart not found')
+                    print('')
             else:
                 page = int(page) + 1
                 url = input('paste url here : ')
@@ -113,7 +120,7 @@ def search_pages():
                     get_deals(url[:del_part]+str(i)+'?FULL_GAME=storeDisplayClassification')
                 break
         except:
-            print('\033[31mwrong input\033[0m')
+            print('\033[31mwrong input or weak connection\033[0m')
     print('')
     print('\033[36mFind',len(games),'Games\033[0m')
     print('')
