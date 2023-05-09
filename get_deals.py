@@ -17,6 +17,7 @@ def sent_sms():
 #sent_sms()
 
 games = []
+#link = []
 def get_deals(url):
     number = 0
     soup = BeautifulSoup(requests.get(url).content, 'html.parser')
@@ -30,25 +31,41 @@ def get_deals(url):
             n = json.loads(names['data-telemetry-meta'])
             number = number + 1
             print('\033[33m-',number,':',n['name']+'\033[0m')
-            games.append(n['name'].lower()+', '+n['price'])
+            games.append(f"{n['name'].lower()}, {n['price']}")
             #ignore errors for free games
             try :
                 #Combine Original Price and New Price
-                print(orginal_price,'===>',n['price'])
+                print(f"{orginal_price} ===> {n['price']}")
             except:
                 continue
         #find consoles
         for consoles in products.find_all('span', class_='psw-platform-tag psw-p-x-2 psw-l-line-left psw-t-tag psw-on-graphic'):
             print(consoles.get_text())
+        """
         #Find Images
         for img in products.find_all('img', class_='psw-top-left psw-l-fit-cover'):
             print(img.get('src'))
+        """
+        #Find links
+        for links in products.find_all('a', class_='psw-link psw-content-link'):
+            print(f"https://store.playstation.com/{links.get('href')}")
+            #link.append(links.get('href'))
         print('------------')
 
 def show_cart():
     file = open('cart.txt','r')
-    print(file.read())
+    text = file.read()
+    print(text)
+"""
+def get_date():
+    url = f'https://store.playstation.com/{link[0]}'
+    print(url)
+    soup = BeautifulSoup(requests.get(url).content, 'html.parser')
 
+    for dates in soup.find_all('span', class_='psw-t-overline psw-t-bold psw-l-line-left psw-fill-x'):
+        a = dates.get_text()
+        print('\033[36m'+a[a.find('O'):][:a.rfind('3')]+'\033[0m')
+"""
 def search_games():
     while True:
         res = input('Search Game by Name : ')
